@@ -41,75 +41,28 @@
     <script src="<?php echo base_url('assets/vendors/pdfmake/build/vfs_fonts.js');?>"></script>
      <!-- Parsley -->
     <script src="<?php echo base_url('assets/vendors/parsleyjs/dist/parsley.min.js');?>"></script>
+    <script src="<?php echo base_url('assets/vendors/parsleyjs/dist/i18n/pt-br.js');?>"></script>
     <!-- iCheck -->
     <script src="<?php echo base_url('assets/vendors/iCheck/icheck.min.js');?>"></script>
     <!-- PNotify -->
     <script src="<?php echo base_url('assets/vendors/pnotify/dist/pnotify.js');?>"></script>
-    
+    <!-- jquery.inputmask -->
+    <script src="<?php echo base_url('assets/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js');?>"></script>
     
 
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url('assets/build/js/custom.js');?>"></script>
   
+     <!-- Custom app -->
+    <script src="<?php echo base_url('assets/build/js/app.js');?>"></script>
+    
     <!-- Custom Theme Scripts -->
     <?php if ($entidade == "empresa"){ ?>
         <script>
             
-            $('#datatable-responsive').dataTable( {
-                "oLanguage": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "_MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar:",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
+           
              
-            function alerta(titulo,msg,tipo){
-                $(function(){
-                    new PNotify({
-                          title: titulo,
-                          text: msg,
-                          type: tipo,
-                          styling: 'bootstrap3'
-                      });
-                });
-            }
-            
-            function save_limite_func(codigo){      
-                $.ajax({
-                    url : "<?php echo base_url();?>empresa/save_limite_func",
-                    type: "POST",
-                    dataType: "json",
-                    data:{"codigo" : codigo,"valor" : $("#limite-func-"+codigo).val()},  
-                    cache:false,
-                    success: function(res){
-                        //alert(res.msg);
-                        console.log(res);
-                        alerta('Atualização de limite',res.msg,res.tipo);
-                    },
-                    error: function(res){                      
-                       alerta('Atualização de limite',res.msg,res.tipo); 
-                    }          
-                });
-
-            }
+          
             
            /*
              $("input").on('ifChecked', function(event){
@@ -169,8 +122,9 @@
                 });
 
             }
-            
+          
         </script>
     <?php } ?>
+   
   </body>
 </html>

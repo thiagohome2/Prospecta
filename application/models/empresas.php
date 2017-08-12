@@ -3,91 +3,57 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Empresas extends CI_Model {
-    
-    //Busca todos os funcionarios da empresa conveniada que no caso é cliente da farmácia
-    public function get_clientes($codigo_convenio){
-        
-        //Carrega base padrão
+       function get_empresas(){
+         //Carrega base padrão
         $DB1 = $this->load->database('default',TRUE);
         
         //Consulta Email na base de convênios
-        $sql = "SELECT * FROM CLIENTES WHERE CONVENIO = '".$codigo_convenio."' ORDER BY NOME ASC";
+        $sql = "SELECT * FROM empresas ORDER BY nome_fantasia ASC";
         //echo $sql."<br/><br/>";
-        $varcli = $DB1->query($sql);
+        $empresas = $DB1->query($sql);
         
-        $row = $varcli->row_array();
+        $row =  $empresas->row_array();
         
         //print_r($row);
         //Se existe Convênio
         if (isset($row))
         {
-            return $varcli;
+            return $empresas;
         }  else {
             return NULL;
         }
     }
-    
-    public function get_compras($codigo){
-        //Carrega base padrão
+    function adicionar_empresa($dados){
+         //Carrega base padrão
         $DB1 = $this->load->database('default',TRUE);
-        
+        print_r($dados);
         //Consulta Email na base de convênios
-        $sql = "SELECT * FROM VENDAS WHERE CLIENTE = '".$codigo."' ORDER BY DATA ASC";
-        //echo $sql."<br/><br/>";
-        $varvem = $DB1->query($sql);
+        $sql = "INSERT INTO empresas` "
+                . "(`cnpj`,"
+                . " `razao_social`,"
+                . " `nome_fantasia`,"
+                . " `telefone`,"
+                . " `email`,"
+                . " `site`)"
+                . "VALUES ('13.470.423/0001-17',"
+                . " 'Thiago de Oliveira',"
+                . " 'Idéia Reciclavel',"
+                . " '(47)34365250',"
+                . " 'thiago@ideiareciclavel.com.br',"
+                . " 'www.ideiareciclavel.com.br');";
         
-        $rows = $varvem->row_array();
+//echo $sql."<br/><br/>";
+        $empresas = $DB1->query($sql);
+        
+        $row =  $empresas->row_array();
 
-        if (isset($rows))
+        //Se existe Convênio
+        if (isset($row))
         {
-            return $varvem->result_array();
+            return TRUE;
         }  else {
-            return NULL;
+            return FALSE;
         }
     }
-    
-    public function save_limite_func($codigo, $valor){
-        
-        
-        //Carrega base padrão
-        $DB1 = $this->load->database('default',TRUE);
-        
-        $sql = "UPDATE CLIENTES SET LIMITE = '".$valor."' WHERE CODIGO = '".$codigo."'";
-        //echo "<h1>".$sql."</h1>";
-        if($DB1->query($sql))
-        {
-            return "1";
-        }
-        else
-        {
-            return "2";
-        }
-    }
-    
-    public function atualiza_status_func($codigo, $valor){
-        
-        
-        //Carrega base padrão
-        $DB1 = $this->load->database('default',TRUE);
-        
-        if($valor){
-            $status = 'ATIVO'; 
-        }else{
-            $status = 'INATIVO'; 
-        }
-        
-        $sql = "UPDATE CLIENTES SET STATUS = '".$status."' WHERE CODIGO = '".$codigo."'";
-        //echo "<h1>".$sql."</h1>";
-        if($DB1->query($sql))
-        {
-            return "1";
-        }
-        else
-        {
-            return "2";
-        }
-    }
-    
+    //INSERT INTO `prospecta`.`empresas` (`cnpj`, `razao_social`, `nome_fantasia`, `telefone`, `email`, `site`) VALUES ('13.470.423/0001-17', 'Thiago de Oliveira', 'Idéia Reciclavel', '(47)34365250', 'thiago@ideiareciclavel.com.br', 'www.ideiareciclavel.com.br');
 }
-
-
