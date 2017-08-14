@@ -56,75 +56,7 @@
      <!-- Custom app -->
     <script src="<?php echo base_url('assets/build/js/app.js');?>"></script>
     
-    <!-- Custom Theme Scripts -->
-    <?php if ($entidade == "empresa"){ ?>
-        <script>
-            
-           
-             
-          
-            
-           /*
-             $("input").on('ifChecked', function(event){
-                var codigo = $(this).closest("input").attr('cod');
-                var valor = $(this).closest("input").prop('checked');
-                atualiza_status_func (codigo, valor);
-            });
-            
-            $('input').on('ifUnchecked', function (event) {
-                var codigo = $(this).closest("input").attr('cod');
-                var valor = $(this).closest("input").prop('checked');
-                atualiza_status_func (codigo, valor);
-            });
-           */ 
-            function atualiza_status_func (codigo){
-                
-                $.ajax({
-                    url : "<?php echo base_url();?>empresa/atualiza_status_func",
-                    type: "POST",
-                    dataType: "json",
-                    data:{"codigo" : codigo,"valor" :$("#status-func-"+codigo).val()},    
-                    cache:false,
-                    success: function(res){
-                        //alert(res.msg);
-                        //console.log(res);
-                        
-                        if ($("#status-func-"+codigo).val()){
-                            $('#desc-status-'+codigo).html('Ativo');
-                        }else{
-                            $('#desc-status-'+codigo).html('Inativo');
-                        }
-                        
-                        alerta('Atualização de status',res.msg,res.tipo);
-                    },
-                    error: function(res){                      
-                       alerta('Atualização de status',res.msg,res.tipo); 
-                    }          
-                });
-
-            };
-            
-            function relat_func(codigo){      
-                $.ajax({
-                    url : "<?php echo base_url();?>empresa/get_compras_func",
-                    type: "POST",
-                    dataType: "text",
-                    data:{"codigo" : codigo}, 
-                    cache:false,
-                    success: function(res){
-                        //alert(res.msg);
-                        //console.log(res);
-                        $("#modal-body-"+codigo).html(res);     
-                    },
-                    error: function(){                      
-                        alerta('Problema de sessão','efetur o login novamente','error'); 
-                    }          
-                });
-
-            }
-          
-        </script>
-    <?php } ?>
+    
    
   </body>
 </html>

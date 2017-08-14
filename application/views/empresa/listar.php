@@ -5,7 +5,7 @@
       <div class="title_left">
         <h3> <?php echo $titulo['titulo']?> <small><?php echo $titulo['descricao']?></small></h3>
       </div>
-      <div id="msgjs"></div>
+      
     </div>
 
     <div class="clearfix"></div>  
@@ -23,13 +23,19 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-
+                   <?php if($alerta != null){?>
+                    <div class="alert alert-<?php echo $alerta['class'];?> fade in alert-dismissable">
+                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <?php echo $alerta['mansagem'];?>
+                  </div>
+                  <?php }?>
+                  
                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                       <tr>
-                        <th>Nome</th>
-                        <th>Razão Social</th>
                         <th>CNPJ</th>
+                        <th>Razão Social</th>
+                        <th>Nome Fantasia</th>                        
                         <th>Telefone</th>
                         <th>Email</th>
                        
@@ -45,9 +51,9 @@
                           ?>
 
                         <tr>
-                           <td><?php echo substr($dado['nome_fantasia'], 0, 20)?></td>
-                           <td><?php echo substr($dado['razao_social'], 0, 40)?></td>
                            <td><?php echo substr($dado['cnpj'], 0, 15)?></td>
+                           <td><?php echo substr($dado['razao_social'], 0, 40)?></td>
+                           <td><?php echo substr($dado['nome_fantasia'], 0, 20)?></td>
                            <td><?php echo substr($dado['telefone'], 0, 15)?></td>
                            <td><?php echo substr($dado['email'], 0, 25)?></td>
                           
@@ -59,7 +65,7 @@
                                </div>
 
                                <div class="modal fade bs-modal-visualizar-<?php echo $dado['id']?>" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                                    <div class="modal-dialog modal-lg">
+                                    <div class="modal-dialog">
                                       <div class="modal-content">
                                             <div class="modal-header">
                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
@@ -85,27 +91,81 @@
                                </div>    
 
                                <div class="modal fade bs-modal-editar-<?php echo $dado['id']?>" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                                    <div class="modal-dialog modal-lg">
+                                    <div class="modal-dialog">
                                       <div class="modal-content">
-                                            <div class="modal-header">
+                                            
+                                          <div class="modal-header">
                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
                                               </button>
                                               <h4 class="modal-title tile_info" id="ModalLabel-editar-<?php echo $dado['id']?>">Editar Empresa <?php echo $dado['nome_fantasia']?></h4>
                                             </div>
                                           <div class="modal-body">
-                                                <h3>Folmulário</h3>
+                                                <div id="msgjs-alterar-<?php echo $dado['id']?>"></div>
+                                                <form id="form-alterar-<?php echo $dado['id']?>"  data-parsley-validate="">  
+                                                <div class="row">
+                                                <div class="col-sm-9"> 
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-12">
+                                                            <label for="editar-cnpj-<?php echo $dado['id']?>" >CNPJ:</label>
+                                                        </div>
+                                                        <div class="col-xs-8 col-sm-12">
+                                                            <input type="text" name="editar-cnpj-<?php echo $dado['id']?>" class="form-control" readonly="readonly" value="<?php echo $dado['cnpj']?>"  id="editar-cnpj-<?php echo $dado['id']?>">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-12">
+                                                            <label for="editar-razao-social-<?php echo $dado['id']?>" >Razão Social: <span class="required">*</span></label>
+                                                        </div>
+                                                        <div class="col-xs-8 col-sm-12">
+                                                            <input type="text" name="editar-razao-social-<?php echo $dado['id']?>" class="form-control" value="<?php echo $dado['razao_social']?>" required="required"  id="editar-razao-social-<?php echo $dado['id']?>">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-12">
+                                                            <label for="editar-nome-fantasia-<?php echo $dado['id']?>" >Nome Fantasia: <span class="required">*</span></label>
+                                                        </div>
+                                                        <div class="col-xs-8 col-sm-12">
+                                                            <input type="text" name="editar-nome-fantasia-<?php echo $dado['id']?>" class="form-control" value="<?php echo $dado['nome_fantasia']?>" required="required"  id="editar-nome-fantasia-<?php echo $dado['id']?>">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-12">
+                                                            <label for="editar-telefone-<?php echo $dado['id']?>" >Telefone: <span class="required">*</span></label>
+                                                        </div>
+                                                        <div class="col-xs-8 col-sm-12">
+                                                            <input type="text" name="editar-telefone-<?php echo $dado['id']?>" class="form-control" value="<?php echo $dado['telefone']?>" data-inputmask="'mask' : '(99) 99999-9999'"  id="editar-telefone-<?php echo $dado['id']?>">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-12">
+                                                            <label for="editar-email-<?php echo $dado['id']?>" >Email: <span class="required">*</span></label>
+                                                        </div>
+                                                        <div class="col-xs-8 col-sm-12">
+                                                        <input type="email" name="editar-email-<?php echo $dado['id']?>" value="<?php echo $dado['email']?>" class="form-control" id="editar-email-<?php echo $dado['id']?>">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-12">
+                                                            <label for="editar-site-<?php echo $dado['id']?>" >Site:</label>
+                                                        </div>
+                                                        <div class="col-xs-8 col-sm-12">    
+                                                            <input type="url" name="editar-site-<?php echo $dado['id']?>"  value="<?php echo $dado['site']?>" class="form-control" id="editar-site-<?php echo $dado['id']?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              </div>  
+                                                   
+                                               </form>
                                                 
-                                                 <input id="telefone" class="form-control col-md-7 col-xs-12" type="text" name="telefone" data-inputmask="'mask' : '(99) 99999-9999'" required="required" ><br/>
-                                                        
-                                                 <input id="email" class="form-control col-md-7 col-xs-12" type="email" name="email" required="required" ><br/>
-                                                      
-                                                 <input id="site" class="form-control col-md-7 col-xs-12" type="url" placeholder="www.seusite.com" name="site"><br/>
-                                                        
-                        
                                            </div>
                                         <div class="modal-footer">
-                                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                          <button type="button" class="btn btn-success">Salvar</button>
+                                            <button type="button" onclick="fechar_modal()" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                            <button type="button" onclick="alterar_empresa(<?php echo $dado['id']?>)" class="btn btn-success">Salvar</button>
                                         </div>
                                       </div>
                                     </div>
@@ -119,13 +179,14 @@
                                                   <h2 class="modal-title tile_info" id="">Excluir Empresa</h2>
                                                 </div>
                                                 <div class="modal-body">
+                                                    <div id="msgjs-excluir-<?php echo $dado['id']?>"></div>
                                                     <h3>Atenção!</h3>
-                                                <h4>Voce deseja realmente<br/> excluir a empresa <br/>
-                                               <?php echo $dado['nome_fantasia']?></h4>
+                                                    <h4>Voce deseja realmente<br/> excluir a empresa </h4>
+                                                    <h2><?php echo $dado['nome_fantasia']?></h2>
                                                </div>
                                             <div class="modal-footer">
-                                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                              <button type="button" class="btn btn-danger">Sim Excluir</button>
+                                              <button type="button" onclick="setTimeout(location.reload.bind(location), 500);"  class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                              <button type="button" onclick="excluir_empresa(<?php echo $dado['id']?>)" class="btn btn-danger">Sim Excluir</button>
                                             </div>
 
                                           </div>
@@ -144,10 +205,7 @@
                 </div>
               </div>
         </div>
-
-
-      
-
   </div>
 </div>
+ 
 <!-- /page content -->

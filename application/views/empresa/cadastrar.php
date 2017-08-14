@@ -30,7 +30,7 @@
                       </div>
                       <?php }?>
                     <?php// echo form_open('form'); ?>  
-                    <form id="demo-form2" data-parsley-validate action="<?php echo base_url('empresa/adicionar');?>" method="POST"  class="form-horizontal form-label-left">
+                    <form id="form-cadastro" data-parsley-validate action="<?php echo base_url('empresa/cadastrar');?>" method="POST"  class="form-horizontal form-label-left">
                             
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cnpj">CNPJ <span class="required">*</span>
@@ -59,7 +59,7 @@
                         </div>
                       </div>
                         <div class="form-group">
-                        <label for="telefone" class="control-label col-md-3 col-sm-3 col-xs-12">Email <span class="required">*</span></label>
+                        <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">Email <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="email" class="form-control col-md-7 col-xs-12" type="email" name="email" required="required" value="<?php echo set_value('email'); ?>" >
                         </div>
@@ -76,7 +76,8 @@
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                           
 			  <button class="btn btn-danger" type="reset">Limpar</button>
-                          <button type="submit" class="btn btn-success">Enviar</button>
+                          <button name="salvar" value="salvar" type="submit" class="btn btn-success">Salvar</button>
+                          <a href="cadastrar"class="btn btn-default">Novo Cadastro</a>
                         </div>
                       </div>
 

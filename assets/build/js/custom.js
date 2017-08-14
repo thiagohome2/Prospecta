@@ -967,7 +967,7 @@ if (typeof NProgress != 'undefined') {
 			  validateFront();
 			});
 			var validateFront = function() {
-			  if (true === $('#demo-form').parsley().isValid()) {
+			  if (true === $('#demo-form').parsley()) {
 				$('.bs-callout-info').removeClass('hidden');
 				$('.bs-callout-warning').addClass('hidden');
 			  } else {
@@ -984,7 +984,7 @@ if (typeof NProgress != 'undefined') {
 			  validateFront();
 			});
 			var validateFront = function() {
-			  if (true === $('#demo-form2').parsley().isValid()) {
+			  if (true === $('#demo-form2').parsley()) {
 				$('.bs-callout-info').removeClass('hidden');
 				$('.bs-callout-warning').addClass('hidden');
 			  } else {
